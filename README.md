@@ -29,7 +29,8 @@ Firefly ships with some lighweight validation that comes in the form of callback
 Each callback is triggered by default. You can turn off specific callbacks via the ```setCallbacks``` method:
 
 ```php
-$uploader->setCallbacks(['checkFileExists', 'checkContentType']); // skips checkFileSize callback
+// skips checkFileSize callback
+$uploader->setCallbacks(['checkFileExists', 'checkContentType']);
 ```
 
 ## To Do
@@ -39,4 +40,4 @@ $uploader->setCallbacks(['checkFileExists', 'checkContentType']); // skips check
 
 ## License
 
-The Firefly class is open-sourced software licensed under the [MIT license](https://github.com/fti-feda/firefly/blob/master/LICENSE).
+The Firefly uploader class is open-sourced software licensed under the [MIT license](https://github.com/fti-feda/firefly/blob/master/LICENSE).
