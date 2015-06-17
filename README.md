@@ -10,7 +10,7 @@ Firely is a stupidly simple file uploader class written in PHP.
 require_once('src/Firefly.php');
 
 // initialize uploader & define upload path and acceptable file types
-$uploader = Firefly\Firefly::uploader('uploads/resumes', ['doc', 'docx', 'pdf', 'pdfx', 'pages']);
+$uploader = Firefly\Firefly::uploader('uploads/resumes', ['doc', 'docx', 'pdf']);
 
 $uploader->upload($_FILES['resumeUpload']);
 
@@ -23,8 +23,9 @@ if ( empty($uploader->errors) )
 
 Firefly ships with some lighweight validation that comes in the form of callback methods:
 - File size 
-- File name uniqueness
+- Name uniqueness
 - Extension type
+- Content type
 
 Each callback is triggered by default. You can turn off specific callbacks via the ```setCallbacks``` method:
 
