@@ -15,8 +15,8 @@ $uploader = Firefly\Firefly::uploader('uploads/resumes', ['doc', 'docx', 'pdf'])
 $uploader->upload($_FILES['resumeUpload']);
 
 // an empty errors attribute should indicate a succesful upload
-if ( empty($uploader->errors) )
-  echo 'There was an error: ' . $uploader->errors[0];
+if ( empty($uploader->errors()) )
+  echo 'There was an error: ' . $uploader->errors()[0];
 ```
 
 ## Lightweight Validation

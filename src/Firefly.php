@@ -23,7 +23,7 @@ class Firefly {
 
   protected $callbacks = ['checkExtension', 'checkFileExists', 'checkFileSize'];
 
-  public $errors = [];
+  protected $errors = [];
   
   /**
    * Initialize/return Firefly object
@@ -196,6 +196,24 @@ class Firefly {
    */
   public function setPermissions( $permissions ) {
     $this->permissions = $permissions;
+  }
+
+  /**
+   * Access file properties
+   * 
+   * @return array
+   */
+  public function getFile() {
+    return $this->file;
+  }
+
+  /**
+   * Access validation errors
+   *   
+   * @return array
+   */
+  public function errors() {
+    return $this->errors;
   }
 
 }
