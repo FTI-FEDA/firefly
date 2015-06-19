@@ -21,7 +21,7 @@ class Firefly {
 
   protected $upload_dir;
 
-  protected $callbacks = ['checkContentType', 'checkExtension', 'checkFileExists', 'checkFileSize'];
+  protected $callbacks = ['checkExtension', 'checkFileExists', 'checkFileSize'];
 
   public $errors = [];
   
@@ -56,10 +56,22 @@ class Firefly {
    * @param  string $filename
    * @return boolean
    */
-  public function upload( $filename ) {
-    $this->file = $filename;
+  public function upload( $filename = false ) {
+    if ( empty($this->file) ) $this->mount($filename);
 
     if ( $this->validate() ) return $this->saveFile();
+  }
+
+  /**
+   * Set the uploaded file as a variable
+   *   
+   * @param  string $filename 
+   * @return Firefly           
+   */
+  public function mount( $filename ) {
+    $this->file = $filename;
+
+    return $this;
   }
 
   /**
@@ -85,9 +97,11 @@ class Firefly {
       $this->$method();
     }
 
-    if ( empty($this->errors) ) {
-      return true;
+    if ( !empty($this->errors) ) {
+      return $this->errors;
     }
+
+    return true;
   }
   
   /**
@@ -122,7 +136,7 @@ class Firefly {
   public function checkContentType() {
     try {
       $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    } catch {
+    } catch ( Exception $e ) {
       throw new Exception('Firefly requires the fileinfo.so extension for content type validation');
     }
 
