@@ -17,7 +17,7 @@ class Firefly {
 
   protected $accepted_types;
 
-  protected $max_size = 500000;
+  protected $max_size = 50000000;
 
   protected $upload_dir;
 
@@ -43,7 +43,7 @@ class Firefly {
    * @param array  $accepted_types
    */
   public function __construct( $upload_dir, $accepted_types ) {
-    $this->accepted_types = $accepted_types;
+    $this->accepted_types = array_map('strtolower', $accepted_types);
     
     if ( !$this->setDirectory($upload_dir) ) {
       throw new Exception('Cannot create destination at ' . $upload_dir);
@@ -144,7 +144,7 @@ class Firefly {
     finfo_close($finfo);
 
     foreach( $this->accepted_types as $mime_type ) {
-      if ( $ctype == MimeType::aliases()[$mime_type] )
+      if ( $ctype == MimeType::aliases()[strtolower($mime_type)] )
         $passed = true; break;
     }
 
@@ -158,8 +158,8 @@ class Firefly {
     $tmp = explode('.', $this->file['name']);
     $ext = end($tmp);
 
-    if ( !in_array($ext, $this->accepted_types) )
-      $this->errors[] = ucfirst($ext) . ' is not an acceptable file type';       
+    if ( !in_array(strtolower($ext), $this->accepted_types) )
+      $this->errors[] = strtoupper($ext) . ' is not an acceptable file type';       
   }
 
   protected function checkFileSize() {
